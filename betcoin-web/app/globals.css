@@ -19,13 +19,11 @@ body {
 
 .button-shop {
   background: linear-gradient(90deg, #eed919 0%, #f76628 100%);
-  box-shadow: 37px 3px 50px 0px rgba(255, 216, 79, 0.45);
   box-shadow: -3px -4px 8.6px 0px rgba(62, 40, 27, 0.38) inset;
 }
 
 .button-sobitiya {
   background: linear-gradient(90deg, #1b9efd 0%, #2439f6 100%);
-  box-shadow: 37px 3px 50px 0px rgba(255, 216, 79, 0.45);
   box-shadow: -3px -4px 8.6px 0px rgba(62, 40, 27, 0.38) inset;
 }
 

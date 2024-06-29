@@ -27,7 +27,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Верхний блок */}
       <div className="text-center text-white space-y-5 m-5 z-10 ">
-        <button className="button-shop text-sm py-2 px-24 rounded-lg font-bold w-[350px] h-12 shadow-xl">
+        <button className="button-shop text-xs py-2 px-24 rounded-lg font-bold max-w-[350px] h-12 shadow-xl sm:w-52">
           МАГАЗИН
         </button>
         <div className="mt-4 text-xs flex flex-col gap-3">
@@ -39,7 +39,7 @@ export default function Home() {
       </div>
 
       {/* Блок кликера */}
-      <div className="flex items-center justify-center h-64 w-64 m-auto">
+      <div className="flex items-center justify-center max-h-64 max-w-64 m-auto">
         <Image
           id="ball"
           className="w-64 h-64"
@@ -52,14 +52,14 @@ export default function Home() {
       </div>
 
       {/* Нижний блок */}
-      <div className="flex flex-col items-center text-center text-sm text-white text-nowrap space-y-4 z-10 mb-10 w-[350px]">
-        <button className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg font-bold block py-2 w-full h-full shadow-xl">
+      <div className="flex flex-col items-center text-center text-white text-nowrap space-y-4 z-10 mb-10 max-w-[350px]">
+        <button className="button-shop rounded-lg font-bold block text-xs py-3 px-4 w-full h-full ">
           ЗАБРАТЬ $BETCOINЫ
         </button>
-        <button className="button-sobitiya rounded-lg font-bold block py-2 w-full h-full shadow-xl">
+        <button className="button-sobitiya rounded-lg font-bold block text-xs py-3 px-4 w-full h-full ">
           ПРЕДСКАЗАТЬ СОБЫТИЯ
         </button>
-        <button className="button-postavit rounded-lg font-bold block py-2 w-full h-full shadow-xl">
+        <button className="button-postavit rounded-lg font-bold block text-xs py-3 px-4 w-full h-full ">
           ПОСТАВИТЬ
         </button>
       </div>
