@@ -50,7 +50,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Верхний блок */}
       <div className="text-center text-white space-y-5 m-5 z-10 ">
-        <button className="button-shop text-center text-xs py-2 px-24 rounded-lg font-bold max-w-[350px] h-12 shadow-xl ">
+        <button className="button-shop text-center text-xs py-2 px-24 rounded-lg font-bold max-w-[350px] h-12 shadow-xl active:scale-95">
           МАГАЗИН
         </button>
         <div className="mt-4 text-xs flex flex-col gap-3">
@@ -93,14 +93,16 @@ export default function Home() {
               // сюда написать чё будет делать после того как заполниться
             }
           }}
-          className="button-shop rounded-lg font-bold block text-xs py-3 px-4 w-full h-full "
+          className={`button-shop rounded-lg font-bold block text-xs py-3 px-4 w-full h-full ${
+            remainsClick === 0 ? "active:scale-95" : ""
+          }`}
         >
           ЗАБРАТЬ $BETCOINЫ
         </button>
-        <button className="button-sobitiya rounded-lg font-bold block text-xs py-3 px-4 w-full h-full ">
+        <button className="button-sobitiya rounded-lg font-bold block text-xs py-3 px-4 w-full h-full active:scale-95">
           ПРЕДСКАЗАТЬ СОБЫТИЯ
         </button>
-        <button className="button-postavit rounded-lg font-bold block text-xs py-3 px-4 w-full h-full ">
+        <button className="button-postavit rounded-lg font-bold block text-xs py-3 px-4 w-full h-full active:scale-95">
           ПОСТАВИТЬ
         </button>
       </div>
