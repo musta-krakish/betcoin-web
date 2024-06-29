@@ -27,10 +27,10 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Верхний блок */}
       <div className="text-center text-white space-y-5 m-5 z-10 ">
-        <button className="bg-gradient-to-r from-yellow-400 to-orange-500 py-2 px-24 rounded font-bold">
+        <button className="button-shop text-sm py-2 px-24 rounded-lg font-bold w-[350px] h-12 shadow-xl">
           МАГАЗИН
         </button>
-        <div className="mt-4 text-xl">
+        <div className="mt-4 text-xs flex flex-col gap-3">
           <p>
             ЭНЕРГИЯ: {curentClick}/{totalClicks} (24ч)
           </p>
@@ -49,25 +49,17 @@ export default function Home() {
           alt="ball"
           onClick={handleClick}
         ></Image>
-        {/* <div
-          id="ball"
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/ball.svg')",
-          }}
-          onClick={handleClick}
-        ></div> */}
       </div>
 
       {/* Нижний блок */}
-      <div className="relative text-center text-white space-y-4 z-10 mb-10">
-        <button className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded font-bold block w-15">
+      <div className="flex flex-col items-center text-center text-sm text-white text-nowrap space-y-4 z-10 mb-10 w-[350px]">
+        <button className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg font-bold block py-2 w-full h-full shadow-xl">
           ЗАБРАТЬ $BETCOINЫ
         </button>
-        <button className="bg-gradient-to-r from-blue-400 to-blue-500 rounded font-bold block w-15">
+        <button className="button-sobitiya rounded-lg font-bold block py-2 w-full h-full shadow-xl">
           ПРЕДСКАЗАТЬ СОБЫТИЯ
         </button>
-        <button className="bg-gradient-to-r from-purple-400 to-purple-500 rounded font-bold block w-15">
+        <button className="button-postavit rounded-lg font-bold block py-2 w-full h-full shadow-xl">
           ПОСТАВИТЬ
         </button>
       </div>

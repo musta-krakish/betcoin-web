@@ -11,8 +11,25 @@
 
 body {
   font-family: "Press Start 2P", sans-serif;
-  /* overflow-y: hidden; */
   background-image: url("/bg.svg");
-  background-size: 640 480;
+  background-size: cover;
+  background-position: center;
   backdrop-filter: blur(15px);
+}
+
+.button-shop {
+  background: linear-gradient(90deg, #eed919 0%, #f76628 100%);
+  box-shadow: 37px 3px 50px 0px rgba(255, 216, 79, 0.45);
+  box-shadow: -3px -4px 8.6px 0px rgba(62, 40, 27, 0.38) inset;
+}
+
+.button-sobitiya {
+  background: linear-gradient(90deg, #1b9efd 0%, #2439f6 100%);
+  box-shadow: 37px 3px 50px 0px rgba(255, 216, 79, 0.45);
+  box-shadow: -3px -4px 8.6px 0px rgba(62, 40, 27, 0.38) inset;
+}
+
+.button-postavit {
+  background: linear-gradient(90deg, #6B71FF 0%, #AD34F7 100%);
+  box-shadow: -2px -4px 9px 0px rgba(28, 32, 43, 0.38) inset;
 }
