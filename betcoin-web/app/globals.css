@@ -32,3 +32,25 @@ body {
   background: linear-gradient(90deg, #6b71ff 0%, #ad34f7 100%);
   box-shadow: -2px -4px 9px 0px rgba(28, 32, 43, 0.38) inset;
 }
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.indicator {
+  position: absolute;
+  animation: fadeOut 1s ease-out;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}

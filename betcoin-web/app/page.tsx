@@ -4,11 +4,18 @@ import { useState } from "react";
 import styles from "./Home.module.css"; // Создайте файл Home.module.css для стилей
 import Image from "next/image";
 
+interface indicators {
+  id: any;
+  top: any;
+  left: any;
+}
+
 export default function Home() {
   const [totalClicks, setTotalClicks] = useState(500);
   const [remainsClick, setRemainsClick] = useState(500);
   const [currentClick, setCurrentClick] = useState(0);
   const [income, setIncome] = useState(0);
+  const [indicators, setIndicators] = useState<indicators[]>([]);
 
   const handleClick = () => {
     if (remainsClick <= 0) {
@@ -16,6 +23,15 @@ export default function Home() {
       setRemainsClick(remainsClick - 1);
       setCurrentClick(currentClick + 1);
       setIncome(income + 1);
+      const newIndicator = {
+        id: Date.now(),
+        top: Math.random() * 80 + 10 + "%",
+        left: Math.random() * 80 + 10 + "%",
+      };
+      setIndicators((prev) => [...prev, newIndicator]);
+      setTimeout(() => {
+        setIndicators((prev) => prev.filter((i) => i.id !== newIndicator.id));
+      }, 500);
       const ballElement = document.getElementById("ball");
       ballElement?.classList.add(styles.shake);
       setTimeout(() => {
@@ -56,6 +72,14 @@ export default function Home() {
           alt="ball"
           onClick={handleClick}
         ></Image>
+        {indicators.map((indicator) => (
+          <img
+            key={indicator.id}
+            className="indicator"
+            style={{ top: indicator.top, left: indicator.left }}
+            src="/+1.svg"
+          />
+        ))}
       </div>
 
       {/* Нижний блок */}
@@ -63,6 +87,11 @@ export default function Home() {
         <button
           style={{
             background: getBackground(),
+          }}
+          onClick={() => {
+            if (remainsClick === 0) {
+              // сюда написать чё будет делать после того как заполниться
+            }
           }}
           className="button-shop rounded-lg font-bold block text-xs py-3 px-4 w-full h-full "
         >
