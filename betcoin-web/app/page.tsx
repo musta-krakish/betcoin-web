@@ -6,13 +6,15 @@ import Image from "next/image";
 
 export default function Home() {
   const [totalClicks, setTotalClicks] = useState(500);
-  const [curentClick, setCurentClick] = useState(500);
+  const [remainsClick, setRemainsClick] = useState(500);
+  const [currentClick, setCurrentClick] = useState(0);
   const [income, setIncome] = useState(0);
 
   const handleClick = () => {
-    if (curentClick <= 0) {
+    if (remainsClick <= 0) {
     } else {
-      setCurentClick(curentClick - 1);
+      setRemainsClick(remainsClick - 1);
+      setCurrentClick(currentClick + 1);
       setIncome(income + 1);
       const ballElement = document.getElementById("ball");
       ballElement?.classList.add(styles.shake);
@@ -21,6 +23,11 @@ export default function Home() {
       }, 500);
       navigator.vibrate(100);
     }
+  };
+
+  const getBackground = () => {
+    const percentage = (currentClick / totalClicks) * 100;
+    return `linear-gradient(to right, #eed919 0%, #f76628 ${percentage}%, gray ${percentage}%)`;
   };
 
   return (
@@ -32,7 +39,7 @@ export default function Home() {
         </button>
         <div className="mt-4 text-xs flex flex-col gap-3">
           <p>
-            ЭНЕРГИЯ: {curentClick}/{totalClicks} (24ч)
+            ЭНЕРГИЯ: {remainsClick}/{totalClicks} (24ч)
           </p>
           <p>БАЛАНС: {income} $BETC</p>
         </div>
@@ -53,7 +60,12 @@ export default function Home() {
 
       {/* Нижний блок */}
       <div className="flex flex-col items-center text-center text-white text-nowrap space-y-4 z-10 mb-10 max-w-[350px]">
-        <button className="button-shop rounded-lg font-bold block text-xs py-3 px-4 w-full h-full ">
+        <button
+          style={{
+            background: getBackground(),
+          }}
+          className="button-shop rounded-lg font-bold block text-xs py-3 px-4 w-full h-full "
+        >
           ЗАБРАТЬ $BETCOINЫ
         </button>
         <button className="button-sobitiya rounded-lg font-bold block text-xs py-3 px-4 w-full h-full ">
