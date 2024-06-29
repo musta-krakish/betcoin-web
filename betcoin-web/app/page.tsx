@@ -14,12 +14,12 @@ export default function Home() {
     } else {
       setCurentClick(curentClick - 1);
       setIncome(income + 1);
-      navigator.vibrate(100);
       const ballElement = document.getElementById("ball");
       ballElement?.classList.add(styles.shake);
       setTimeout(() => {
         ballElement?.classList.remove(styles.shake);
       }, 500);
+      navigator.vibrate(100);
     }
   };
 
@@ -27,7 +27,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Верхний блок */}
       <div className="text-center text-white space-y-5 m-5 z-10 ">
-        <button className="button-shop text-xs py-2 px-24 rounded-lg font-bold max-w-[350px] h-12 shadow-xl sm:w-52">
+        <button className="button-shop text-center text-xs py-2 px-24 rounded-lg font-bold max-w-[350px] h-12 shadow-xl ">
           МАГАЗИН
         </button>
         <div className="mt-4 text-xs flex flex-col gap-3">
