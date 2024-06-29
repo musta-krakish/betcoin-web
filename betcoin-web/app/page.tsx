@@ -1,43 +1,84 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styles from "./Home.module.css"; // Создайте файл Home.module.css для стилей
 import Image from "next/image";
 
 interface indicators {
-  id: any;
-  top: any;
-  left: any;
+  id: number;
+  top: string;
+  left: string;
 }
 
 export default function Home() {
-  const [totalClicks, setTotalClicks] = useState(500);
-  const [remainsClick, setRemainsClick] = useState(500);
+  const [totalClicks, setTotalClicks] = useState(10);
+  const [remainsClick, setRemainsClick] = useState(10);
   const [currentClick, setCurrentClick] = useState(0);
   const [income, setIncome] = useState(0);
   const [indicators, setIndicators] = useState<indicators[]>([]);
+  const [touchCount, setTouchCount] = useState(0);
 
-  const handleClick = () => {
+  function vibrate() {
+    if (navigator.vibrate) {
+      navigator.vibrate(100);
+    }
+    // else if (
+    //   window.webkit &&
+    //   window.webkit.messageHandlers &&
+    //   window.webkit.messageHandlers.vibrate
+    // ) {
+    //   window.webkit.messageHandlers.vibrate.postMessage({});
+    // }
+  }
+
+  const clicked = useCallback(() => {
     if (remainsClick <= 0) {
+      return;
     } else {
       setRemainsClick(remainsClick - 1);
       setCurrentClick(currentClick + 1);
       setIncome(income + 1);
-      const newIndicator = {
+
+      const newIndicator: indicators = {
         id: Date.now(),
         top: Math.random() * 80 + 10 + "%",
         left: Math.random() * 80 + 10 + "%",
       };
+
       setIndicators((prev) => [...prev, newIndicator]);
+
       setTimeout(() => {
         setIndicators((prev) => prev.filter((i) => i.id !== newIndicator.id));
       }, 500);
+
       const ballElement = document.getElementById("ball");
       ballElement?.classList.add(styles.shake);
       setTimeout(() => {
         ballElement?.classList.remove(styles.shake);
       }, 500);
-      navigator.vibrate(100);
+
+      vibrate();
+    }
+  }, [remainsClick]);
+
+  const handleClick = () => {
+    if (!("ontouchstart" in window)) {
+      clicked();
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchCount(e.touches.length);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (e.touches.length === 0) {
+      for (let i = 0; i < touchCount; i++) {
+        clicked();
+      }
+      setTouchCount(0);
+    } else {
+      setTouchCount(e.touches.length);
     }
   };
 
@@ -71,6 +112,8 @@ export default function Home() {
           height={300}
           alt="ball"
           onClick={handleClick}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         ></Image>
         {indicators.map((indicator) => (
           <img
