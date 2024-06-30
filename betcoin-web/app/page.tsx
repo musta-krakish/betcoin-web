@@ -11,8 +11,8 @@ interface indicators {
 }
 
 export default function Home() {
-  const [totalClicks, setTotalClicks] = useState(10);
-  const [remainsClick, setRemainsClick] = useState(10);
+  const [totalClicks, setTotalClicks] = useState(500);
+  const [remainsClick, setRemainsClick] = useState(500);
   const [currentClick, setCurrentClick] = useState(0);
   const [income, setIncome] = useState(0);
   const [indicators, setIndicators] = useState<indicators[]>([]);
@@ -90,8 +90,8 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Верхний блок */}
-      <div className="text-center text-white space-y-5 m-5 z-10 ">
-        <button className="button-shop text-center text-xs py-2 px-24 rounded-lg font-bold max-w-[350px] h-12 shadow-xl active:scale-95">
+      <div className="text-center text-white space-y-5 m-5 z-10 w-full">
+        <button className="button-shop text-center text-xs py-2 px-24 rounded-lg font-bold h-12 w-[95%] active:scale-95">
           МАГАЗИН
         </button>
         <div className="mt-4 text-xs flex flex-col gap-3">
@@ -103,10 +103,10 @@ export default function Home() {
       </div>
 
       {/* Блок кликера */}
-      <div className="flex items-center justify-center max-h-64 max-w-64 m-auto">
+      <div className="flex items-center justify-center h-[90%] w-[90%] m-auto rounded-full">
         <Image
           id="ball"
-          className="w-64 h-64"
+          className="w-[90%] h-[90%] rounded-full"
           src={"/ball.svg"}
           width={300}
           height={300}
@@ -126,7 +126,7 @@ export default function Home() {
       </div>
 
       {/* Нижний блок */}
-      <div className="flex flex-col items-center text-center text-white text-nowrap space-y-4 z-10 mb-10 max-w-[350px]">
+      <div className="flex flex-col items-center text-center text-white text-nowrap space-y-4 z-10 mb-10 w-full h-48">
         <button
           style={{
             background: getBackground(),
@@ -136,16 +136,16 @@ export default function Home() {
               // сюда написать чё будет делать после того как заполниться
             }
           }}
-          className={`button-shop rounded-lg font-bold block text-xs py-3 px-4 w-full h-full ${
+          className={`button-shop rounded-lg font-bold block text-xs py-3 px-4 w-[95%] h-14 ${
             remainsClick === 0 ? "active:scale-95" : ""
           }`}
         >
           ЗАБРАТЬ $BETCOINЫ
         </button>
-        <button className="button-sobitiya rounded-lg font-bold block text-xs py-3 px-4 w-full h-full active:scale-95">
+        <button className="button-sobitiya rounded-lg font-bold block text-xs py-3 px-4 w-[95%] h-14 active:scale-95">
           ПРЕДСКАЗАТЬ СОБЫТИЯ
         </button>
-        <button className="button-postavit rounded-lg font-bold block text-xs py-3 px-4 w-full h-full active:scale-95">
+        <button className="button-postavit rounded-lg font-bold block text-xs py-3 px-4 w-[95%] h-14 active:scale-95">
           ПОСТАВИТЬ
         </button>
       </div>
