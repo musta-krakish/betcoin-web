@@ -26,15 +26,13 @@ const Home: FC = () => {
 
   const innitData = useInitData();
 
-  let remains;
-  let lefttime;
-
   useEffect(() => {
     setUser(innitData?.user?.id || 0);
 
     const fetchData = async () => {
-      remains = await MainApi.getEnergy(user);
-      lefttime = await MainApi.getTime(user);
+      const remains = await MainApi.getEnergy(user);
+      const lefttime = await MainApi.getTime(user);
+      console.log("🚀 ~ fetchData ~ lefttime:", lefttime);
 
       setRemainsClick(remains);
     };
@@ -118,8 +116,6 @@ const Home: FC = () => {
               ЭНЕРГИЯ: {remainsClick}/{totalClicks} (24ч)
             </p>
             <p>БАЛАНС: {income} $BETC</p>
-            <p>remains: {remains}</p>
-            <p>remains: {lefttime}</p>
           </div>
         </div>
 
