@@ -40,14 +40,14 @@ const Home: FC = () => {
       console.log("🚀 ~ fetchData ~ remains:", remains);
       const lefttime = await MainApi.getTime(user);
       console.log("🚀 ~ fetchData ~ lefttime:", lefttime);
-      timestampToHours(lefttime);
-      setLeftTime(timestampToHours(lefttime));
       const guccy = await MainApi.getGuccy(user);
+      console.log("🚀 ~ fetchData ~ guccy:", guccy);
+      setLeftTime(timestampToHours(lefttime));
       setIncome(guccy);
       setRemainsClick(remains);
     };
     fetchData();
-  }, [reward]);
+  }, [currentClick, reward]);
 
   const postClick = async () => {
     await MainApi.postTap(user);
@@ -179,8 +179,8 @@ const Home: FC = () => {
             }}
             onClick={async () => {
               if (remainsClick === 0) {
-                await MainApi.postReward(user);
-                setReward(true);
+              await MainApi.postReward(user);
+              setReward(true);
               }
             }}
             className={`button-shop block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold ${
