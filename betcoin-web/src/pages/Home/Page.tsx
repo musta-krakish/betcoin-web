@@ -23,11 +23,11 @@ const Home: FC = () => {
     }
   }
 
-  // const innitData = useInitData();
+  const innitData = useInitData();
 
-  // useEffect(() => {
-  //   setUser(innitData?.user?.id || 0);
-  // }, []);
+  useEffect(() => {
+    setUser(innitData?.user?.id || 0);
+  }, []);
 
   const clicked = useCallback(() => {
     if (remainsClick <= 0) {
