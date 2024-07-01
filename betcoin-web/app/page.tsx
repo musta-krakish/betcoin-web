@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import styles from "./Home.module.css"; 
 import Image from "next/image"
-import { TelegramProvider, useTelegram } from "./components/TelegramProvider";
+import {  useTelegram } from "./components/TelegramProvider";
 
 
 interface indicators {
@@ -27,6 +27,8 @@ export default function Home() {
   }
 
   const { user, webApp } = useTelegram();
+
+  console.log(user);
 
 
 
@@ -89,7 +91,7 @@ export default function Home() {
   };
 
   return (
-    <TelegramProvider>
+
     <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Верхний блок */}
       <div className="text-center text-white space-y-5 m-5 z-10 w-full">
@@ -152,6 +154,5 @@ export default function Home() {
         </button>
       </div>
     </div>
-    </TelegramProvider>
   );
 }

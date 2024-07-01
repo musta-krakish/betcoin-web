@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Press_Start_2P } from "next/font/google";
+import { TelegramProvider } from "@/app/components/TelegramProvider";
 import "./globals.css";
 
 const pressstart2p = Press_Start_2P({
@@ -19,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={pressstart2p.className}>{children}</body>
+        <TelegramProvider>
+        <body className={pressstart2p.className}>{children}</body>
+      </TelegramProvider>
     </html>
   );
 }
