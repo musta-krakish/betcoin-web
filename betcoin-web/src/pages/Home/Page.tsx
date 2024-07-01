@@ -23,11 +23,11 @@ const Home: FC = () => {
     }
   }
 
-  const innitData = useInitData();
+  // const innitData = useInitData();
 
-  useEffect(() => {
-    setUser(innitData?.user?.id || 0);
-  }, []);
+  // useEffect(() => {
+  //   setUser(innitData?.user?.id || 0);
+  // }, []);
 
   const clicked = useCallback(() => {
     if (remainsClick <= 0) {
@@ -87,7 +87,13 @@ const Home: FC = () => {
 
   return (
     <>
-      <div className="flex min-h-screen flex-col items-center justify-center">
+      <div
+        style={{
+          backdropFilter: "blur(15px)",
+          WebkitBackdropFilter: "blur(15px)",
+        }}
+        className="flex min-h-screen flex-col items-center justify-center"
+      >
         {/* Верхний блок */}
         <div className="z-10 m-5 w-full space-y-5 text-center text-white">
           <button className="button-shop h-12 w-[95%] rounded-lg px-24 py-2 text-center text-xs font-bold active:scale-95">
