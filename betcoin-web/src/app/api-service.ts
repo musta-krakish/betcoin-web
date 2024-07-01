@@ -19,7 +19,7 @@ export const MainApi = {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ telegram_id: tg_id }),
+        body: JSON.stringify({ tgid: tg_id }),
       });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -32,7 +32,7 @@ export const MainApi = {
   },
   async postTap(tg_id: number) {
     try {
-      const response = await fetch(`https://scum.322228.xyz/tap`, {
+      const response = await fetch(`https://scam.322228.xyz/tap`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,33 @@ export const MainApi = {
   },
   async getTime(tg_id: number) {
     try {
-      const response = await fetch(`https://scum.322228.xyz/time/${tg_id}`);
+      const response = await fetch(`https://scam.322228.xyz/time/${tg_id}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
+  async getGuccy(tg_id: number) {
+    try {
+      const response = await fetch(`https://scam.322228.xyz/gucci/${tg_id}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
+  async getRenewTime(tg_id: number) {
+    try {
+      const response = await fetch(
+        `https://scam.322228.xyz/renew_time/${tg_id}`,
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }

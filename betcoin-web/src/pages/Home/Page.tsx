@@ -16,7 +16,9 @@ const Home: FC = () => {
   const [income, setIncome] = useState(0);
   const [indicators, setIndicators] = useState<indicators[]>([]);
   const [touchCount, setTouchCount] = useState(0);
+  const [leftTime, setLeftTime] = useState(0);
   const [user, setUser] = useState(0);
+  const [reward, setReward] = useState(false);
 
   function vibrate() {
     if (navigator.vibrate) {
@@ -24,20 +26,28 @@ const Home: FC = () => {
     }
   }
 
-  const innitData = useInitData();
+  function timestampToHours(timestamp: number) {
+    const hours = Math.floor((timestamp / (1000 * 60 * 60)) % 24);
+    return hours;
+  }
 
+  const innitData = useInitData();
   useEffect(() => {
     setUser(innitData?.user?.id || 0);
 
     const fetchData = async () => {
       const remains = await MainApi.getEnergy(user);
+      console.log("🚀 ~ fetchData ~ remains:", remains);
       const lefttime = await MainApi.getTime(user);
       console.log("🚀 ~ fetchData ~ lefttime:", lefttime);
-
+      timestampToHours(lefttime);
+      setLeftTime(timestampToHours(lefttime));
+      const guccy = await MainApi.getGuccy(user);
+      setIncome(guccy);
       setRemainsClick(remains);
     };
     fetchData();
-  }, []);
+  }, [reward]);
 
   const postClick = async () => {
     await MainApi.postTap(user);
@@ -49,7 +59,6 @@ const Home: FC = () => {
     } else {
       setRemainsClick(remainsClick - 1);
       setCurrentClick(currentClick + 1);
-      setIncome(income + 1);
 
       const newIndicator: indicators = {
         id: Date.now(),
@@ -110,12 +119,30 @@ const Home: FC = () => {
       >
         {/* Верхний блок */}
         <div className="z-10 m-5 w-full space-y-5 text-center text-white">
-          <button className="button-shop h-12 w-[95%] rounded-lg px-24 py-2 text-center text-xs font-bold active:scale-95">
-            {user}
+          <button
+            disabled
+            className="button-shop relative h-12 w-[95%] rounded-lg px-24 py-2 text-center text-xs font-bold"
+          >
+            <div
+              style={{
+                opacity: "0.45",
+              }}
+            >
+              МАГАЗИН
+            </div>
+            <div
+              style={{
+                opacity: "0.45",
+                fontSize: "10px",
+              }}
+              className="absolute bottom-4 right-4"
+            >
+              Soon...
+            </div>
           </button>
           <div className="mt-4 flex flex-col gap-3 text-xs">
             <p>
-              ЭНЕРГИЯ: {remainsClick}/{totalClicks} (24ч)
+              ЭНЕРГИЯ: {remainsClick}/{totalClicks} ({leftTime}ч)
             </p>
             <p>БАЛАНС: {income} $BETC</p>
           </div>
@@ -153,6 +180,7 @@ const Home: FC = () => {
             onClick={async () => {
               if (remainsClick === 0) {
                 await MainApi.postReward(user);
+                setReward(true);
               }
             }}
             className={`button-shop block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold ${
@@ -164,8 +192,26 @@ const Home: FC = () => {
           <button className="button-sobitiya block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold active:scale-95">
             ПРЕДСКАЗАТЬ СОБЫТИЯ
           </button>
-          <button className="button-postavit block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold active:scale-95">
-            ПОСТАВИТЬ
+          <button
+            disabled
+            className="button-postavit relative block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold"
+          >
+            <div
+              style={{
+                opacity: "0.45",
+              }}
+            >
+              ПОСТАВИТЬ
+            </div>
+            <div
+              style={{
+                opacity: "0.45",
+                fontSize: "10px",
+              }}
+              className="absolute bottom-4 right-4"
+            >
+              Soon...
+            </div>
           </button>
         </div>
       </div>
