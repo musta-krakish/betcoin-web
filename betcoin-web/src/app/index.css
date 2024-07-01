@@ -2,12 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
   background-image: url("/bg.svg");
   background-size: cover;
   background-position: center;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
+  font-family: "Press Start 2P";
+  font-weight: 400;
+  font-style: normal;
 }
 
 .button-shop {
