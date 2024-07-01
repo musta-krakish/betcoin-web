@@ -1,6 +1,7 @@
 import { useInitData } from "@tma.js/sdk-react";
 import { FC, useCallback, useEffect, useState } from "react";
 import styles from "./Home.module.css";
+import { MainApi } from "@/app/api-service";
 
 interface indicators {
   id: number;
@@ -25,14 +26,27 @@ const Home: FC = () => {
 
   const innitData = useInitData();
 
+  let remains;
+  let lefttime;
+
   useEffect(() => {
     setUser(innitData?.user?.id || 0);
+
+    const fetchData = async () => {
+      remains = await MainApi.getEnergy(user);
+      lefttime = await MainApi.getTime(user);
+
+      setRemainsClick(remains);
+    };
+    fetchData();
   }, []);
 
-  const clicked = useCallback(() => {
+  const clicked = useCallback(async () => {
     if (remainsClick <= 0) {
       return;
     } else {
+      await MainApi.postTap(user);
+
       setRemainsClick(remainsClick - 1);
       setCurrentClick(currentClick + 1);
       setIncome(income + 1);
@@ -104,6 +118,8 @@ const Home: FC = () => {
               ЭНЕРГИЯ: {remainsClick}/{totalClicks} (24ч)
             </p>
             <p>БАЛАНС: {income} $BETC</p>
+            <p>remains: {remains}</p>
+            <p>remains: {lefttime}</p>
           </div>
         </div>
 
@@ -136,9 +152,9 @@ const Home: FC = () => {
             style={{
               background: getBackground(),
             }}
-            onClick={() => {
+            onClick={async () => {
               if (remainsClick === 0) {
-                // сюда написать чё будет делать после того как заполниться
+                await MainApi.postReward(user);
               }
             }}
             className={`button-shop block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold ${
