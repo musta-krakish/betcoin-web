@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import styles from "./Home.module.css"; 
 import Image from "next/image"
-import { useInitData } from '@tma.js/sdk-react';
+import { TelegramProvider, useTelegram } from "./components/TelegramProvider";
+
 
 interface indicators {
   id: number;
@@ -18,7 +19,6 @@ export default function Home() {
   const [income, setIncome] = useState(0);
   const [indicators, setIndicators] = useState<indicators[]>([]);
   const [touchCount, setTouchCount] = useState(0);
-  const [user, setUser] = useState(0);
 
   function vibrate() {
     if (navigator.vibrate) {
@@ -26,11 +26,8 @@ export default function Home() {
     }
   }
 
-  const innitData = useInitData()
+  const { user, webApp } = useTelegram();
 
-  useEffect(() => {
-    setUser(innitData?.user?.id || 0)
-  }, [])
 
 
   const clicked = useCallback(() => {
@@ -92,11 +89,12 @@ export default function Home() {
   };
 
   return (
+    <TelegramProvider>
     <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Верхний блок */}
       <div className="text-center text-white space-y-5 m-5 z-10 w-full">
         <button className="button-shop text-center text-xs py-2 px-24 rounded-lg font-bold h-12 w-[95%] active:scale-95">
-          {user}
+          {user?.id}
         </button>
         <div className="mt-4 text-xs flex flex-col gap-3">
           <p>
@@ -154,5 +152,6 @@ export default function Home() {
         </button>
       </div>
     </div>
+    </TelegramProvider>
   );
 }
