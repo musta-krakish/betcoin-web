@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import styles from "./Home.module.css"; // Создайте файл Home.module.css для стилей
-import Image from "next/image";
+import { use, useCallback, useEffect, useState } from "react";
+import styles from "./Home.module.css"; 
+import Image from "next/image"
+import { useInitData, useLaunchParams, type User } from '@tma.js/sdk-react';
 
 interface indicators {
   id: number;
@@ -17,19 +18,20 @@ export default function Home() {
   const [income, setIncome] = useState(0);
   const [indicators, setIndicators] = useState<indicators[]>([]);
   const [touchCount, setTouchCount] = useState(0);
+  const [user, setUser] = useState(0);
 
   function vibrate() {
     if (navigator.vibrate) {
       navigator.vibrate(100);
     }
-    // else if (
-    //   window.webkit &&
-    //   window.webkit.messageHandlers &&
-    //   window.webkit.messageHandlers.vibrate
-    // ) {
-    //   window.webkit.messageHandlers.vibrate.postMessage({});
-    // }
   }
+
+  const innitData = useInitData()
+
+  useEffect(() => {
+    setUser(innitData?.user?.id || 0)
+  }, [])
+
 
   const clicked = useCallback(() => {
     if (remainsClick <= 0) {
@@ -60,6 +62,8 @@ export default function Home() {
       vibrate();
     }
   }, [remainsClick]);
+
+
 
   const handleClick = () => {
     if (!("ontouchstart" in window)) {
@@ -92,7 +96,7 @@ export default function Home() {
       {/* Верхний блок */}
       <div className="text-center text-white space-y-5 m-5 z-10 w-full">
         <button className="button-shop text-center text-xs py-2 px-24 rounded-lg font-bold h-12 w-[95%] active:scale-95">
-          МАГАЗИН
+          {user}
         </button>
         <div className="mt-4 text-xs flex flex-col gap-3">
           <p>
