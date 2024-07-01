@@ -39,12 +39,14 @@ const Home: FC = () => {
     fetchData();
   }, []);
 
-  const clicked = useCallback(async () => {
+  const postClick = async () => {
+    await MainApi.postTap(user);
+  };
+
+  const clicked = useCallback(() => {
     if (remainsClick <= 0) {
       return;
     } else {
-      await MainApi.postTap(user);
-
       setRemainsClick(remainsClick - 1);
       setCurrentClick(currentClick + 1);
       setIncome(income + 1);
@@ -66,7 +68,7 @@ const Home: FC = () => {
       setTimeout(() => {
         ballElement?.classList.remove(styles.shake);
       }, 500);
-
+      postClick();
       vibrate();
     }
   }, [remainsClick]);
