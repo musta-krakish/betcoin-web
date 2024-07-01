@@ -1,9 +1,9 @@
 "use client";
 
-import { use, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./Home.module.css"; 
 import Image from "next/image"
-import { useInitData, useLaunchParams, type User } from '@tma.js/sdk-react';
+import { useInitData } from '@tma.js/sdk-react';
 
 interface indicators {
   id: number;
