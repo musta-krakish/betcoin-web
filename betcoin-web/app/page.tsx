@@ -28,7 +28,7 @@ export default function Home() {
 
   const { user, webApp } = useTelegram();
 
-  console.log(user);
+  console.log("pivo:", user);
 
 
 
@@ -45,6 +45,8 @@ export default function Home() {
         top: Math.random() * 80 + 10 + "%",
         left: Math.random() * 80 + 10 + "%",
       };
+
+      console.log("pivo:", user);
 
       setIndicators((prev) => [...prev, newIndicator]);
 
@@ -96,7 +98,7 @@ export default function Home() {
       {/* Верхний блок */}
       <div className="text-center text-white space-y-5 m-5 z-10 w-full">
         <button className="button-shop text-center text-xs py-2 px-24 rounded-lg font-bold h-12 w-[95%] active:scale-95">
-          {user?.id}
+          МАГАЗИН
         </button>
         <div className="mt-4 text-xs flex flex-col gap-3">
           <p>
