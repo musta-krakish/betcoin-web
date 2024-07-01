@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Press_Start_2P } from "next/font/google";
 import "./globals.css";
+import { SDKProvider } from "@tma.js/sdk-react"
 
 const pressstart2p = Press_Start_2P({
   subsets: ["cyrillic", "latin"],
@@ -19,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={pressstart2p.className}>{children}</body>
+      <SDKProvider acceptCustomStyles>
+        <body className={pressstart2p.className}>{children}</body>
+      </SDKProvider>
     </html>
   );
 }
