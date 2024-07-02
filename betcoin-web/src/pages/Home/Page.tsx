@@ -53,7 +53,7 @@ const Home: FC = () => {
     if (userId !== 0) {
       fetchData();
     }
-  }, [initData]);
+  }, [initData, currentClick, reward]);
 
 
   const postClick = async () => {
@@ -64,7 +64,6 @@ const Home: FC = () => {
     if (remainsClick <= 0) {
       return;
     } else {
-      setRemainsClick(remainsClick - 1);
       setCurrentClick(currentClick + 1);
 
       const newIndicator: indicators = {
