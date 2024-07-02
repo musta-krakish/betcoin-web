@@ -87,7 +87,7 @@ const Home: FC = () => {
       postClick();
       vibrate();
     }
-  }, [remainsClick]);
+  }, [remainsClick, reward, currentClick]);
 
   const handleClick = () => {
     if (!("ontouchstart" in window)) {
