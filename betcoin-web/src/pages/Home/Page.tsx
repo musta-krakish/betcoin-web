@@ -35,23 +35,26 @@ const Home: FC = () => {
   //   return hours;
   // }
 
-  const innitData = useInitData();
+  const initData = useInitData();
+
   useEffect(() => {
-    setUser(innitData?.user?.id || 0);
+    const userId = initData?.user?.id || 0;
+    setUser(userId);
 
     const fetchData = async () => {
-      const remains = await MainApi.getEnergy(user);
+      const remains = await MainApi.getEnergy(userId);
       console.log("🚀 ~ fetchData ~ remains:", remains);
-      // const lefttime = await MainApi.getTime(user);
-      // console.log("🚀 ~ fetchData ~ lefttime:", lefttime);
-      const guccy = await MainApi.getGuccy(user);
+      const guccy = await MainApi.getGuccy(userId);
       console.log("🚀 ~ fetchData ~ guccy:", guccy);
-      // setLeftTime(timestampToHours(lefttime));
       setIncome(guccy);
       setRemainsClick(remains);
     };
-    fetchData();
-  }, [currentClick, reward]);
+
+    if (userId !== 0) {
+      fetchData();
+    }
+  }, [initData]);
+
 
   const postClick = async () => {
     await MainApi.postTap(user);
