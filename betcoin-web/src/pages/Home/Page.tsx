@@ -2,6 +2,8 @@ import { useInitData } from "@tma.js/sdk-react";
 import { FC, useCallback, useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import { MainApi } from "@/app/api-service";
+import { initMiniApp } from '@tma.js/sdk';
+
 
 interface indicators {
   id: number;
@@ -19,6 +21,8 @@ const Home: FC = () => {
   const [leftTime, setLeftTime] = useState(0);
   const [user, setUser] = useState(0);
   const [reward, setReward] = useState(false);
+
+  const [miniApp] = initMiniApp();
 
   function vibrate() {
     if (navigator.vibrate) {
@@ -181,6 +185,7 @@ const Home: FC = () => {
               if (remainsClick === 0) {
               await MainApi.postReward(user);
               setReward(true);
+              miniApp.close();
               }
             }}
             className={`button-shop block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold ${
