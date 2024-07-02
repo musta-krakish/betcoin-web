@@ -18,7 +18,7 @@ const Home: FC = () => {
   const [income, setIncome] = useState(0);
   const [indicators, setIndicators] = useState<indicators[]>([]);
   const [touchCount, setTouchCount] = useState(0);
-  const [leftTime, setLeftTime] = useState(0);
+  // const [leftTime, setLeftTime] = useState(0);
   const [user, setUser] = useState(0);
   const [reward, setReward] = useState(false);
 
@@ -30,10 +30,10 @@ const Home: FC = () => {
     }
   }
 
-  function timestampToHours(timestamp: number) {
-    const hours = Math.floor((timestamp / (1000 * 60 * 60)) % 24);
-    return hours;
-  }
+  // function timestampToHours(timestamp: number) {
+  //   const hours = Math.floor((timestamp / (1000 * 60 * 60)) % 24);
+  //   return hours;
+  // }
 
   const innitData = useInitData();
   useEffect(() => {
@@ -146,7 +146,7 @@ const Home: FC = () => {
           </button>
           <div className="mt-4 flex flex-col gap-3 text-xs">
             <p>
-              ЭНЕРГИЯ: {remainsClick}/{totalClicks} ({leftTime}ч)
+              ЭНЕРГИЯ: {remainsClick}/{totalClicks} 24ч
             </p>
             <p>БАЛАНС: {income} $BETC</p>
           </div>
