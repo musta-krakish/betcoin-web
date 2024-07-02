@@ -114,6 +114,10 @@ const Home: FC = () => {
     return `linear-gradient(to right, #eed919 0%, #f76628 ${percentage}%, gray ${percentage}%)`;
   };
 
+  const predictEvents = async () => {
+    miniApp.close();
+  };
+
   return (
     <>
       <div
@@ -196,7 +200,9 @@ const Home: FC = () => {
           >
             ЗАБРАТЬ $BETCOINЫ
           </button>
-          <button className="button-sobitiya block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold active:scale-95">
+          <button
+            onClick={predictEvents}
+            className="button-sobitiya block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold active:scale-95">
             ПРЕДСКАЗАТЬ СОБЫТИЯ
           </button>
           <button
