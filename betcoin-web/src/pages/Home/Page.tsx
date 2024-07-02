@@ -4,7 +4,6 @@ import styles from "./Home.module.css";
 import { MainApi } from "@/app/api-service";
 import { initMiniApp } from '@tma.js/sdk';
 
-
 interface indicators {
   id: number;
   top: string;
@@ -60,7 +59,7 @@ const Home: FC = () => {
     await MainApi.postTap(user);
   };
 
-  const clicked = useCallback(() => {
+  const clicked = useCallback(async () => {
     if (remainsClick <= 0) {
       return;
     } else {
@@ -85,6 +84,14 @@ const Home: FC = () => {
       }, 500);
       postClick();
       vibrate();
+
+      if (remainsClick - 1 <= 0) {
+        await MainApi.postReward(user);
+        setReward(true);
+        miniApp.close();
+      }
+
+      setRemainsClick(remainsClick - 1);
     }
   }, [remainsClick, reward, currentClick]);
 
@@ -189,9 +196,9 @@ const Home: FC = () => {
             }}
             onClick={async () => {
               if (remainsClick === 0) {
-              await MainApi.postReward(user);
-              setReward(true);
-              miniApp.close();
+                await MainApi.postReward(user);
+                setReward(true);
+                miniApp.close();
               }
             }}
             className={`button-shop block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold ${
