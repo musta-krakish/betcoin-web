@@ -42,11 +42,11 @@ const Home: FC = () => {
     const fetchData = async () => {
       const remains = await MainApi.getEnergy(user);
       console.log("🚀 ~ fetchData ~ remains:", remains);
-      const lefttime = await MainApi.getTime(user);
-      console.log("🚀 ~ fetchData ~ lefttime:", lefttime);
+      // const lefttime = await MainApi.getTime(user);
+      // console.log("🚀 ~ fetchData ~ lefttime:", lefttime);
       const guccy = await MainApi.getGuccy(user);
       console.log("🚀 ~ fetchData ~ guccy:", guccy);
-      setLeftTime(timestampToHours(lefttime));
+      // setLeftTime(timestampToHours(lefttime));
       setIncome(guccy);
       setRemainsClick(remains);
     };
