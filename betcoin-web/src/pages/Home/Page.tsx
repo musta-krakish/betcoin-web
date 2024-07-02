@@ -29,9 +29,10 @@ const Home: FC = () => {
     }
   }
 
-  function timestampToHours(timestamp: number) {
-    const hours = Math.floor((timestamp / (1000 * 60 * 60)) % 24);
-    return hours;
+  function formatTime(seconds: number) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return `${hours}ч ${minutes}м`;
   }
 
   const initData = useInitData();
@@ -53,7 +54,6 @@ const Home: FC = () => {
       fetchData();
     }
   }, [initData, currentClick, reward]);
-
 
   const postClick = async () => {
     await MainApi.postTap(user);
@@ -159,7 +159,7 @@ const Home: FC = () => {
           </button>
           <div className="mt-4 flex flex-col gap-3 text-xs">
             <p>
-              ЭНЕРГИЯ: {remainsClick}/{totalClicks} {timestampToHours(leftTime)}ч
+              ЭНЕРГИЯ: {remainsClick}/{totalClicks} {formatTime(leftTime)}
             </p>
             <p>БАЛАНС: {income} $BETC</p>
           </div>
