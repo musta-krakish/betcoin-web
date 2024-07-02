@@ -18,7 +18,7 @@ const Home: FC = () => {
   const [income, setIncome] = useState(0);
   const [indicators, setIndicators] = useState<indicators[]>([]);
   const [touchCount, setTouchCount] = useState(0);
-  // const [leftTime, setLeftTime] = useState(0);
+  const [leftTime, setLeftTime] = useState(0);
   const [user, setUser] = useState(0);
   const [reward, setReward] = useState(false);
 
@@ -30,10 +30,10 @@ const Home: FC = () => {
     }
   }
 
-  // function timestampToHours(timestamp: number) {
-  //   const hours = Math.floor((timestamp / (1000 * 60 * 60)) % 24);
-  //   return hours;
-  // }
+  function timestampToHours(timestamp: number) {
+    const hours = Math.floor((timestamp / (1000 * 60 * 60)) % 24);
+    return hours;
+  }
 
   const initData = useInitData();
 
@@ -43,9 +43,9 @@ const Home: FC = () => {
 
     const fetchData = async () => {
       const remains = await MainApi.getEnergy(userId);
-      console.log("🚀 ~ fetchData ~ remains:", remains);
       const guccy = await MainApi.getGuccy(userId);
-      console.log("🚀 ~ fetchData ~ guccy:", guccy);
+      const time = await MainApi.getRenewTime(userId);
+      setLeftTime(time);
       setIncome(guccy);
       setRemainsClick(remains);
     };
@@ -149,7 +149,7 @@ const Home: FC = () => {
           </button>
           <div className="mt-4 flex flex-col gap-3 text-xs">
             <p>
-              ЭНЕРГИЯ: {remainsClick}/{totalClicks} 24ч
+              ЭНЕРГИЯ: {remainsClick}/{totalClicks} {timestampToHours(leftTime)}ч
             </p>
             <p>БАЛАНС: {income} $BETC</p>
           </div>
