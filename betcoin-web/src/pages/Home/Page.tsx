@@ -28,7 +28,7 @@ const Home: FC = () => {
 
   const [miniApp] = initMiniApp();
 
-  const [_impactOccured, notificationOccured, _selectionChanged] =
+  const [impactOccured, _notificationOccured, _selectionChanged] =
     useHapticFeedback();
 
   function vibrate() {
@@ -36,7 +36,7 @@ const Home: FC = () => {
     // if (navigator.vibrate) {
     //   navigator.vibrate(100);
     // }
-    notificationOccured("success");
+    impactOccured("heavy");
   }
 
   function formatTime(seconds: number) {
