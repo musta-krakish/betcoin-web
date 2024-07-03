@@ -48,6 +48,24 @@ export const MainApi = {
       throw err;
     }
   },
+  async postFermi(tg_id: number) {
+    try {
+      const response = await fetch(`https://scam.322228.xyz/fermi`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ tgid: tg_id }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
   async getTime(tg_id: number) {
     try {
       const response = await fetch(`https://scam.322228.xyz/time/${tg_id}`);

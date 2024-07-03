@@ -1,8 +1,9 @@
 import { useInitData } from "@tma.js/sdk-react";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./Home.module.css";
 import { MainApi } from "@/app/api-service";
 import { initMiniApp, postEvent } from "@tma.js/sdk";
+import { v4 as uuidv4 } from "uuid";
 
 interface indicators {
   id: number;
@@ -13,17 +14,23 @@ interface indicators {
 const postClick = async (user: number) => {
   await MainApi.postTap(user);
 };
+const totalClicks = 500;
 
 const Home: FC = () => {
-  const totalClicks = 500;
-  const [remainsClick, setRemainsClick] = useState(500);
-  const [currentClick, setCurrentClick] = useState(0);
+  const [remainsClick, setRemainsClick] = useState(totalClicks);
+  // const [currentClick, setCurrentClick] = useState(0);
+  const currentClick = useMemo(() => {
+    return totalClicks - remainsClick;
+  }, [remainsClick]);
   const [income, setIncome] = useState(0);
   const [indicators, setIndicators] = useState<indicators[]>([]);
   const [touchCount, setTouchCount] = useState(0);
   const [leftTime, setLeftTime] = useState(0);
+  const timerRef = useRef<number>();
   const [user, setUser] = useState(0);
-  const [reward, setReward] = useState(false);
+  // const [latestFetch, setLatestFetch] = useState("");
+  const latestFetchRef = useRef("");
+  // const [reward, setReward] = useState(false);
 
   const [miniApp] = initMiniApp();
 
@@ -35,7 +42,8 @@ const Home: FC = () => {
   }
 
   function formatTime(seconds: number) {
-    return `${typeof seconds} ${seconds}`; // temp
+    // return `${typeof seconds} ${seconds}`; // temp
+    if (seconds === -1 || remainsClick > 0 || seconds === 0) return "";
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     return `${hours}ч ${minutes}м`;
@@ -48,25 +56,65 @@ const Home: FC = () => {
     setUser(userId);
 
     const fetchData = async () => {
-      const remains = await MainApi.getEnergy(userId);
-      const guccy = await MainApi.getGuccy(userId);
-      const time = await MainApi.getRenewTime(userId);
+      const fetch = uuidv4();
+      latestFetchRef.current = fetch;
+
+      const remainsPromise = MainApi.getEnergy(userId);
+      const guccyPromise = MainApi.getGuccy(userId);
+      const timePromise = MainApi.getRenewTime(userId);
+      const [remains, guccy, time] = await Promise.all([
+        timePromise,
+        guccyPromise,
+        remainsPromise,
+      ]);
+
+      if (fetch !== latestFetchRef.current) return;
+
+      const resetTimer = () => {
+        if (timerRef.current) clearInterval(timerRef.current);
+        timerRef.current = undefined;
+      };
+
+      const launchTimer = async () => {
+        resetTimer();
+        if (remains > 0) {
+          setLeftTime(0);
+          return;
+        }
+        if (time === -1) {
+          return;
+        }
+        if (time < -1) {
+          setLeftTime(0);
+          MainApi.getEnergy(userId).then((r) => setRemainsClick(r));
+          return;
+        }
+        timerRef.current = setInterval(() => {
+          setLeftTime((time) => {
+            if (time === 0) {
+              resetTimer();
+              MainApi.getEnergy(userId).then((r) => setRemainsClick(r));
+              return 0;
+            } else return time - 1;
+          });
+        }, 1000);
+      };
+
       setLeftTime(time);
       setIncome(guccy);
       setRemainsClick(remains);
+      launchTimer();
     };
 
     if (userId !== 0) {
       fetchData();
     }
-  }, [initData, currentClick, reward]);
+  }, [initData, user]);
 
   const clicked = useCallback(async () => {
     if (remainsClick <= 0) {
       return;
     } else {
-      setCurrentClick(currentClick + 1);
-
       const newIndicator: indicators = {
         id: Date.now(),
         top: Math.random() * 80 + 10 + "%",
@@ -88,14 +136,15 @@ const Home: FC = () => {
       vibrate();
 
       if (remainsClick - 1 <= 0) {
-        await MainApi.postReward(user);
-        setReward(true);
+        // await MainApi.postReward(user);
+        // setReward(true);
+        await MainApi.postTap(user);
         miniApp.close();
       }
 
       setRemainsClick(remainsClick - 1);
     }
-  }, [remainsClick, currentClick, miniApp, user]);
+  }, [remainsClick, miniApp, user]);
 
   const handleClick = () => {
     if (!("ontouchstart" in window)) {
@@ -124,6 +173,7 @@ const Home: FC = () => {
   };
 
   const predictEvents = async () => {
+    await MainApi.postFermi(user);
     miniApp.close();
   };
 
@@ -195,13 +245,6 @@ const Home: FC = () => {
           <button
             style={{
               background: getBackground(),
-            }}
-            onClick={async () => {
-              if (remainsClick === 0) {
-                await MainApi.postReward(user);
-                setReward(true);
-                miniApp.close();
-              }
             }}
             className={`button-shop block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold ${
               remainsClick === 0 ? "active:scale-95" : ""
