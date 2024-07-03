@@ -2,13 +2,18 @@ import { useInitData } from "@tma.js/sdk-react";
 import { FC, useCallback, useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import { MainApi } from "@/app/api-service";
-import { initMiniApp } from '@tma.js/sdk';
+import { initMiniApp } from "@tma.js/sdk";
+import { useHapticFeedback } from "@vkruglikov/react-telegram-web-app";
 
 interface indicators {
   id: number;
   top: string;
   left: string;
 }
+
+const postClick = async (user: number) => {
+  await MainApi.postTap(user);
+};
 
 const Home: FC = () => {
   const totalClicks = 500;
@@ -23,10 +28,15 @@ const Home: FC = () => {
 
   const [miniApp] = initMiniApp();
 
+  const [_impactOccured, notificationOccured, _selectionChanged] =
+    useHapticFeedback();
+
   function vibrate() {
-    if (navigator.vibrate) {
-      navigator.vibrate(100);
-    }
+    // temporary code for testing
+    // if (navigator.vibrate) {
+    //   navigator.vibrate(100);
+    // }
+    notificationOccured("success");
   }
 
   function formatTime(seconds: number) {
@@ -55,10 +65,6 @@ const Home: FC = () => {
     }
   }, [initData, currentClick, reward]);
 
-  const postClick = async () => {
-    await MainApi.postTap(user);
-  };
-
   const clicked = useCallback(async () => {
     if (remainsClick <= 0) {
       return;
@@ -82,7 +88,7 @@ const Home: FC = () => {
       setTimeout(() => {
         ballElement?.classList.remove(styles.shake);
       }, 500);
-      postClick();
+      postClick(user);
       vibrate();
 
       if (remainsClick - 1 <= 0) {
@@ -209,7 +215,8 @@ const Home: FC = () => {
           </button>
           <button
             onClick={predictEvents}
-            className="button-sobitiya block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold active:scale-95">
+            className="button-sobitiya block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold active:scale-95"
+          >
             ПРЕДСКАЗАТЬ СОБЫТИЯ
           </button>
           <button
