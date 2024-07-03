@@ -35,7 +35,7 @@ const Home: FC = () => {
   }
 
   function formatTime(seconds: number) {
-    return `${seconds}сек`; // temp
+    return `${typeof seconds} ${seconds}`; // temp
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     return `${hours}ч ${minutes}м`;
