@@ -2,8 +2,8 @@ import { useInitData } from "@tma.js/sdk-react";
 import { FC, useCallback, useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import { MainApi } from "@/app/api-service";
-import { initMiniApp } from "@tma.js/sdk";
-import { useHapticFeedback } from "@vkruglikov/react-telegram-web-app";
+import { initMiniApp, postEvent } from "@tma.js/sdk";
+// import { useHapticFeedback } from "@vkruglikov/react-telegram-web-app";
 
 interface indicators {
   id: number;
@@ -28,16 +28,20 @@ const Home: FC = () => {
 
   const [miniApp] = initMiniApp();
 
-  const [_impactOccured, notificationOccured, _selectionChanged] =
-    useHapticFeedback();
+  // const [_impactOccured, notificationOccured, _selectionChanged] =
+  //   useHapticFeedback();
 
-  /* function vibrate() {
+  function vibrate() {
     // temporary code for testing
     // if (navigator.vibrate) {
     //   navigator.vibrate(100);
     // }
-    notificationOccured("success");
-  } */
+    // notificationOccured("success");
+    postEvent("web_app_trigger_haptic_feedback", {
+      type: "notification",
+      notification_type: "success",
+    });
+  }
 
   function formatTime(seconds: number) {
     const hours = Math.floor(seconds / 3600);
@@ -89,8 +93,7 @@ const Home: FC = () => {
         ballElement?.classList.remove(styles.shake);
       }, 500);
       postClick(user);
-      // vibrate();
-      notificationOccured("success");
+      vibrate();
 
       if (remainsClick - 1 <= 0) {
         await MainApi.postReward(user);
@@ -100,7 +103,7 @@ const Home: FC = () => {
 
       setRemainsClick(remainsClick - 1);
     }
-  }, [remainsClick, currentClick, notificationOccured, miniApp, user]);
+  }, [remainsClick, currentClick, miniApp, user]);
 
   const handleClick = () => {
     if (!("ontouchstart" in window)) {
