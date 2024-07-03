@@ -28,7 +28,7 @@ const Home: FC = () => {
 
   const [miniApp] = initMiniApp();
 
-  const [impactOccured, _notificationOccured, _selectionChanged] =
+  const [_impactOccured, notificationOccured, _selectionChanged] =
     useHapticFeedback();
 
   function vibrate() {
@@ -36,13 +36,13 @@ const Home: FC = () => {
     // if (navigator.vibrate) {
     //   navigator.vibrate(100);
     // }
-    impactOccured("heavy");
+    notificationOccured("success");
   }
 
   function formatTime(seconds: number) {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
-    return `${hours}ч ${minutes}м`;
+    return `${hours}h ${minutes}m`;
   }
 
   const initData = useInitData();
@@ -99,7 +99,7 @@ const Home: FC = () => {
 
       setRemainsClick(remainsClick - 1);
     }
-  }, [remainsClick, reward, currentClick]);
+  }, [remainsClick, reward, currentClick, vibrate]);
 
   const handleClick = () => {
     if (!("ontouchstart" in window)) {
