@@ -17,7 +17,15 @@ const postClick = async (user: number) => {
 const totalClicks = 500;
 
 const Home: FC = () => {
-  const [debugOpen, setDebugOpen] = useState(false);
+  const debugDialogRef = useRef<HTMLDialogElement>(null);
+  const setDebugOpen = (open: boolean) => {
+    if (open) {
+      debugDialogRef.current?.show();
+    } else {
+      debugDialogRef.current?.close();
+    }
+  };
+
   const [remainsClick, setRemainsClick] = useState(totalClicks);
   // const [currentClick, setCurrentClick] = useState(0);
   const currentClick = useMemo(() => {
@@ -289,20 +297,27 @@ const Home: FC = () => {
         </div>
       </div>
       <dialog
-        open={debugOpen}
-        className="fixed left-0 top-0 z-40 h-screen w-screen bg-slate-800"
+        ref={debugDialogRef}
+        className="left-0 top-0 z-40 h-screen w-screen flex-col bg-slate-800 backdrop:bg-slate-900/75 open:flex"
       >
         <button
-          className="absolute right-0 top-0"
+          className="h-5 w-5 self-end"
           onClick={() => setDebugOpen(false)}
         >
           x
         </button>
-        <div className="h-full w-full overflow-auto">
+        <div className="grow overflow-auto">
           <pre>{JSON.stringify(initData, null, 2)}</pre>
           <pre>
             {JSON.stringify(
-              { user, remainsClick, income, leftTime, indicators, touchCount },
+              {
+                user,
+                remainsClick,
+                income,
+                leftTime,
+                indicators,
+                touchCount,
+              },
               null,
               2,
             )}
