@@ -62,7 +62,7 @@ const Home: FC = () => {
       const remainsPromise = MainApi.getEnergy(userId);
       const guccyPromise = MainApi.getGuccy(userId);
       const timePromise = MainApi.getRenewTime(userId);
-      const [remains, guccy, time] = await Promise.all([
+      const [time, guccy, remains] = await Promise.all([
         timePromise,
         guccyPromise,
         remainsPromise,
