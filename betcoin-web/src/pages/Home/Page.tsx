@@ -17,6 +17,7 @@ const postClick = async (user: number) => {
 const totalClicks = 500;
 
 const Home: FC = () => {
+  const [debugOpen, setDebugOpen] = useState(false);
   const [remainsClick, setRemainsClick] = useState(totalClicks);
   // const [currentClick, setCurrentClick] = useState(0);
   const currentClick = useMemo(() => {
@@ -184,8 +185,33 @@ const Home: FC = () => {
           backdropFilter: "blur(15px)",
           WebkitBackdropFilter: "blur(15px)",
         }}
-        className="flex min-h-screen flex-col items-center justify-center"
+        className="relative flex min-h-screen flex-col items-center justify-center"
       >
+        <button
+          className="absolute right-0 top-0 h-5 w-5"
+          onClick={() => setDebugOpen(true)}
+        >
+          d
+        </button>
+        <dialog
+          open={debugOpen}
+          className="absolute left-0 top-0 h-full w-full bg-white"
+        >
+          <button
+            className="absolute right-0 top-0"
+            onClick={() => setDebugOpen(false)}
+          >
+            x
+          </button>
+          <pre>{JSON.stringify(initData, null, 2)}</pre>
+          <pre>
+            {JSON.stringify(
+              { user, remainsClick, income, leftTime, indicators, touchCount },
+              null,
+              2,
+            )}
+          </pre>
+        </dialog>
         {/* Верхний блок */}
         <div className="z-10 m-5 w-full space-y-5 text-center text-white">
           <button
