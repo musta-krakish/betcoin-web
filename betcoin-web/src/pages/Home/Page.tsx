@@ -31,13 +31,13 @@ const Home: FC = () => {
   const [_impactOccured, notificationOccured, _selectionChanged] =
     useHapticFeedback();
 
-  function vibrate() {
+  /* function vibrate() {
     // temporary code for testing
     // if (navigator.vibrate) {
     //   navigator.vibrate(100);
     // }
     notificationOccured("success");
-  }
+  } */
 
   function formatTime(seconds: number) {
     const hours = Math.floor(seconds / 3600);
@@ -89,7 +89,8 @@ const Home: FC = () => {
         ballElement?.classList.remove(styles.shake);
       }, 500);
       postClick(user);
-      vibrate();
+      // vibrate();
+      notificationOccured("success");
 
       if (remainsClick - 1 <= 0) {
         await MainApi.postReward(user);
@@ -99,7 +100,7 @@ const Home: FC = () => {
 
       setRemainsClick(remainsClick - 1);
     }
-  }, [remainsClick, reward, currentClick, vibrate]);
+  }, [remainsClick, currentClick, notificationOccured, miniApp, user]);
 
   const handleClick = () => {
     if (!("ontouchstart" in window)) {
