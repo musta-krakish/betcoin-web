@@ -185,7 +185,7 @@ const Home: FC = () => {
           backdropFilter: "blur(15px)",
           WebkitBackdropFilter: "blur(15px)",
         }}
-        className="relative flex min-h-screen flex-col items-center justify-center"
+        className="flex min-h-screen flex-col items-center justify-center"
       >
         <button
           className="absolute right-0 top-0 h-5 w-5"
@@ -193,25 +193,6 @@ const Home: FC = () => {
         >
           d
         </button>
-        <dialog
-          open={debugOpen}
-          className="absolute left-0 top-0 h-full w-full bg-white"
-        >
-          <button
-            className="absolute right-0 top-0"
-            onClick={() => setDebugOpen(false)}
-          >
-            x
-          </button>
-          <pre>{JSON.stringify(initData, null, 2)}</pre>
-          <pre>
-            {JSON.stringify(
-              { user, remainsClick, income, leftTime, indicators, touchCount },
-              null,
-              2,
-            )}
-          </pre>
-        </dialog>
         {/* Верхний блок */}
         <div className="z-10 m-5 w-full space-y-5 text-center text-white">
           <button
@@ -307,6 +288,27 @@ const Home: FC = () => {
           </button>
         </div>
       </div>
+      <dialog
+        open={debugOpen}
+        className="fixed left-0 top-0 z-40 h-screen w-screen bg-slate-800"
+      >
+        <button
+          className="absolute right-0 top-0"
+          onClick={() => setDebugOpen(false)}
+        >
+          x
+        </button>
+        <div className="h-full w-full overflow-auto">
+          <pre>{JSON.stringify(initData, null, 2)}</pre>
+          <pre>
+            {JSON.stringify(
+              { user, remainsClick, income, leftTime, indicators, touchCount },
+              null,
+              2,
+            )}
+          </pre>
+        </div>
+      </dialog>
     </>
   );
 };
