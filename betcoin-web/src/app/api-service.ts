@@ -32,7 +32,7 @@ export const MainApi = {
   },
   async postTap(tg_id: number) {
     try {
-      const response = await fetch(`https://scam.322228.xyz/tap`, {
+      const response = await fetch(`https://tecnical.322228.xyz/tap`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
