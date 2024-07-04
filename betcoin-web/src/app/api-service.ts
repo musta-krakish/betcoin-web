@@ -2,7 +2,7 @@
 export const MainApi = {
   async getEnergy(tg_id: number) {
     try {
-      const response = await fetch(`https://tecnical.322228.xyz/ebergy/${tg_id}`);
+      const response = await fetch(`https://webmorda.kazdev.team/ebergy/${tg_id}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -14,7 +14,7 @@ export const MainApi = {
   },
   async postReward(tg_id: number) {
     try {
-      const response = await fetch(`https://tecnical.322228.xyz/reward`, {
+      const response = await fetch(`https://webmorda.kazdev.team/reward`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export const MainApi = {
   },
   async postTap(tg_id: number) {
     try {
-      const response = await fetch(`https://tecnical.322228.xyz/tap`, {
+      const response = await fetch(`https://webmorda.kazdev.team/tap`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export const MainApi = {
   },
   async postFermi(tg_id: number) {
     try {
-      const response = await fetch(`https://tecnical.322228.xyz/fermi`, {
+      const response = await fetch(`https://webmorda.kazdev.team/fermi`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export const MainApi = {
   },
   async getTime(tg_id: number) {
     try {
-      const response = await fetch(`https://tecnical.322228.xyz/time/${tg_id}`);
+      const response = await fetch(`https://webmorda.kazdev.team/time/${tg_id}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -80,7 +80,7 @@ export const MainApi = {
   },
   async getGuccy(tg_id: number) {
     try {
-      const response = await fetch(`https://tecnical.322228.xyz/gucci/${tg_id}`);
+      const response = await fetch(`https://webmorda.kazdev.team/gucci/${tg_id}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -93,7 +93,7 @@ export const MainApi = {
   async getRenewTime(tg_id: number) {
     try {
       const response = await fetch(
-        `https://tecnical.322228.xyz/renew_time/${tg_id}`,
+        `https://webmorda.kazdev.team/renew_time/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
