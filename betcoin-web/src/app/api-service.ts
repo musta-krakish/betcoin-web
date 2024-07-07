@@ -113,7 +113,7 @@ export const MainApi = {
   async collectReward(tg_id: number) {
     try {
       const response = await fetch(
-        `https://scam.322228.xyz/rewardbutton/${tg_id}`,
+        `https://webmorda.kazdev.team/rewardbutton/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
