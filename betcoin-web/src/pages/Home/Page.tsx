@@ -5,6 +5,8 @@ import { MainApi } from "@/app/api-service";
 import { initMiniApp, postEvent } from "@tma.js/sdk";
 import { v4 as uuidv4 } from "uuid";
 
+const DEBUG = false;
+
 interface indicators {
   id: number;
   top: string;
@@ -186,6 +188,12 @@ const Home: FC = () => {
     miniApp.close();
   };
 
+  const onRewardClick = async () => {
+    if (remainsClick > 0) return;
+    await MainApi.collectReward(user);
+    miniApp.close();
+  };
+
   return (
     <>
       <div
@@ -195,12 +203,14 @@ const Home: FC = () => {
         }}
         className="flex min-h-screen flex-col items-center justify-center"
       >
-        <button
-          className="absolute right-0 top-0 h-5 w-5"
-          onClick={() => setDebugOpen(true)}
-        >
-          d
-        </button>
+        {DEBUG && (
+          <button
+            className="absolute right-0 top-0 h-5 w-5"
+            onClick={() => setDebugOpen(true)}
+          >
+            d
+          </button>
+        )}
         {/* Верхний блок */}
         <div className="z-10 m-5 w-full space-y-5 text-center text-white">
           <button
@@ -264,6 +274,7 @@ const Home: FC = () => {
             className={`button-shop block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold ${
               remainsClick === 0 ? "active:scale-95" : ""
             }`}
+            onClick={onRewardClick}
           >
             ЗАБРАТЬ $BETCOINЫ
           </button>
@@ -296,34 +307,36 @@ const Home: FC = () => {
           </button>
         </div>
       </div>
-      <dialog
-        ref={debugDialogRef}
-        className="left-0 top-0 z-40 h-screen w-screen flex-col bg-slate-800 backdrop:bg-slate-900/75 open:flex"
-      >
-        <button
-          className="h-5 w-5 self-end"
-          onClick={() => setDebugOpen(false)}
+      {DEBUG && (
+        <dialog
+          ref={debugDialogRef}
+          className="left-0 top-0 z-40 h-screen w-screen flex-col bg-slate-800 backdrop:bg-slate-900/75 open:flex"
         >
-          x
-        </button>
-        <div className="grow overflow-auto">
-          <pre>{JSON.stringify(initData, null, 2)}</pre>
-          <pre>
-            {JSON.stringify(
-              {
-                user,
-                remainsClick,
-                income,
-                leftTime,
-                indicators,
-                touchCount,
-              },
-              null,
-              2,
-            )}
-          </pre>
-        </div>
-      </dialog>
+          <button
+            className="h-5 w-5 self-end"
+            onClick={() => setDebugOpen(false)}
+          >
+            x
+          </button>
+          <div className="grow overflow-auto">
+            <pre>{JSON.stringify(initData, null, 2)}</pre>
+            <pre>
+              {JSON.stringify(
+                {
+                  user,
+                  remainsClick,
+                  income,
+                  leftTime,
+                  indicators,
+                  touchCount,
+                },
+                null,
+                2,
+              )}
+            </pre>
+          </div>
+        </dialog>
+      )}
     </>
   );
 };
