@@ -150,7 +150,7 @@ const Home: FC = () => {
         // await MainApi.postReward(user);
         // setReward(true);
         await MainApi.postTap(user);
-        miniApp.close();
+        // miniApp.close();
       }
 
       setRemainsClick(remainsClick - 1);
