@@ -3,7 +3,7 @@ export const MainApi = {
   async getEnergy(tg_id: number) {
     try {
       const response = await fetch(
-        `http://45.8.96.152/ebergy/${tg_id}`,
+        `http://45.8.96.152:8083/ebergy/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -16,7 +16,7 @@ export const MainApi = {
   },
   async postReward(tg_id: number) {
     try {
-      const response = await fetch(`http://45.8.96.152/reward`, {
+      const response = await fetch(`http://45.8.96.152:8083/reward`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const MainApi = {
   },
   async postTap(tg_id: number) {
     try {
-      const response = await fetch(`http://45.8.96.152/tap`, {
+      const response = await fetch(`http://45.8.96.152:8083/tap`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export const MainApi = {
   },
   async postFermi(tg_id: number) {
     try {
-      const response = await fetch(`http://45.8.96.152/fermi`, {
+      const response = await fetch(`http://45.8.96.152:8083/fermi`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export const MainApi = {
   async getTime(tg_id: number) {
     try {
       const response = await fetch(
-        `http://45.8.96.152/time/${tg_id}`,
+        `http://45.8.96.152:8083/time/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -85,7 +85,7 @@ export const MainApi = {
   async getGuccy(tg_id: number) {
     try {
       const response = await fetch(
-        `http://45.8.96.152/gucci/${tg_id}`,
+        `http://45.8.96.152:8083/gucci/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -99,7 +99,7 @@ export const MainApi = {
   async getRenewTime(tg_id: number) {
     try {
       const response = await fetch(
-        `http://45.8.96.152/renew_time/${tg_id}`,
+        `http://45.8.96.152:8083/renew_time/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -113,7 +113,7 @@ export const MainApi = {
   async collectReward(tg_id: number) {
     try {
       const response = await fetch(
-        `http://45.8.96.152/rewardbutton/${tg_id}`,
+        `http://45.8.96.152:8083/rewardbutton/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
