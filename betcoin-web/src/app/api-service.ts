@@ -3,7 +3,7 @@ export const MainApi = {
   async getEnergy(tg_id: number) {
     try {
       const response = await fetch(
-        `https://tecnical.322228.xyz/ebergy/${tg_id}`,
+        `https://api.tonbetcoin2024webapp.ru/ebergy/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -16,7 +16,7 @@ export const MainApi = {
   },
   async postReward(tg_id: number) {
     try {
-      const response = await fetch(`https://tecnical.322228.xyz/reward`, {
+      const response = await fetch(`https://api.tonbetcoin2024webapp.ru/reward`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const MainApi = {
   },
   async postTap(tg_id: number) {
     try {
-      const response = await fetch(`https://tecnical.322228.xyz/tap`, {
+      const response = await fetch(`https://api.tonbetcoin2024webapp.ru/tap`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export const MainApi = {
   },
   async postFermi(tg_id: number) {
     try {
-      const response = await fetch(`https://tecnical.322228.xyz/fermi`, {
+      const response = await fetch(`https://api.tonbetcoin2024webapp.ru/fermi`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export const MainApi = {
   async getTime(tg_id: number) {
     try {
       const response = await fetch(
-        `https://tecnical.322228.xyz/time/${tg_id}`,
+        `https://api.tonbetcoin2024webapp.ru/time/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -85,7 +85,7 @@ export const MainApi = {
   async getGuccy(tg_id: number) {
     try {
       const response = await fetch(
-        `https://tecnical.322228.xyz/gucci/${tg_id}`,
+        `https://api.tonbetcoin2024webapp.ru/gucci/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -99,7 +99,7 @@ export const MainApi = {
   async getRenewTime(tg_id: number) {
     try {
       const response = await fetch(
-        `https://tecnical.322228.xyz/renew_time/${tg_id}`,
+        `https://api.tonbetcoin2024webapp.ru/renew_time/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -113,7 +113,7 @@ export const MainApi = {
   async collectReward(tg_id: number) {
     try {
       const response = await fetch(
-        `https://tecnical.322228.xyz/rewardbutton/${tg_id}`,
+        `https://api.tonbetcoin2024webapp.ru/rewardbutton/${tg_id}`,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
