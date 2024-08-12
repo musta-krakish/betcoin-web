@@ -1,4 +1,6 @@
 /* eslint-disable no-useless-catch */
+import { Oleg } from "./types";
+
 export const MainApi = {
   async getEnergy(tg_id: number) {
     try {
@@ -124,4 +126,37 @@ export const MainApi = {
       throw err;
     }
   },
+  async getOleg() {
+    try {
+      const response = await fetch(
+        `https://api.tonbetcoin2024webapp.ru/oleg`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json() as Oleg[];
+      return data ;
+    } catch (err) {
+      throw err;
+    }
+  },
+  async buyOleg(id: string, tg_id: number) {
+    try {
+      const response = await fetch(`https://api.tonbetcoin2024webapp.ru/oleg/buy`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "product_id": id,
+          "user_id": tg_id
+         }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
+    } catch (err) {
+      throw err;
+    }
+  }, 
 };

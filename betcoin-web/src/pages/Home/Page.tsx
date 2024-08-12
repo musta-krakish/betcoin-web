@@ -4,6 +4,8 @@ import styles from "./Home.module.css";
 import { MainApi } from "@/app/api-service";
 import { initMiniApp, postEvent } from "@tma.js/sdk";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
+
 
 const DEBUG = false;
 
@@ -44,6 +46,8 @@ const Home: FC = () => {
   // const [reward, setReward] = useState(false);
 
   const [miniApp] = initMiniApp();
+
+  const navigate = useNavigate()
 
   function vibrate() {
     postEvent("web_app_trigger_haptic_feedback", {
@@ -194,6 +198,10 @@ const Home: FC = () => {
     miniApp.close();
   };
 
+  const handleGoToSore = () => {
+    navigate("/store")
+  }
+
   return (
     <>
       <div
@@ -214,7 +222,7 @@ const Home: FC = () => {
         {/* Верхний блок */}
         <div className="z-10 m-5 w-full space-y-5 text-center text-white">
           <button
-            disabled
+            onClick={handleGoToSore}
             className="button-shop relative h-12 w-[95%] rounded-lg px-24 py-2 text-center text-xs font-bold"
           >
             <div
@@ -223,15 +231,6 @@ const Home: FC = () => {
               }}
             >
               МАГАЗИН
-            </div>
-            <div
-              style={{
-                opacity: "0.45",
-                fontSize: "10px",
-              }}
-              className="absolute bottom-4 right-4"
-            >
-              Soon...
             </div>
           </button>
           <div className="mt-4 flex flex-col gap-3 text-xs">
