@@ -225,11 +225,7 @@ const Home: FC = () => {
             onClick={handleGoToSore}
             className="button-shop relative h-12 w-[95%] rounded-lg px-24 py-2 text-center text-xs font-bold"
           >
-            <div
-              style={{
-                opacity: "0.45",
-              }}
-            >
+            <div>
               МАГАЗИН
             </div>
           </button>
