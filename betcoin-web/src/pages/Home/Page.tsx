@@ -202,6 +202,10 @@ const Home: FC = () => {
     navigate("/store")
   }
 
+  const handleRedirectClick = () => {
+    window.location.href = 'https://1wfqtr.life/bets/prematch/33/302/8895';
+  };
+
   return (
     <>
       <div
@@ -280,24 +284,11 @@ const Home: FC = () => {
             ПРЕДСКАЗАТЬ СОБЫТИЯ
           </button>
           <button
-            disabled
+            onClick={handleRedirectClick}
             className="button-postavit relative block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold"
           >
-            <div
-              style={{
-                opacity: "0.45",
-              }}
-            >
+            <div>
               ПОСТАВИТЬ
-            </div>
-            <div
-              style={{
-                opacity: "0.45",
-                fontSize: "10px",
-              }}
-              className="absolute bottom-4 right-4"
-            >
-              Soon...
             </div>
           </button>
         </div>
