@@ -203,7 +203,7 @@ const Home: FC = () => {
   }
 
   const handleRedirectClick = () => {
-    window.location.href = 'https://1wfqtr.life/bets/prematch/33/302/8895';
+    window.location.href = 'https://1wfqtr.life/?open=register&p=2k9h';
   };
 
   return (
