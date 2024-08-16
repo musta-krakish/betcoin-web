@@ -285,7 +285,7 @@ const Home: FC = () => {
           </button>
           <button
             onClick={handleRedirectClick}
-            className="button-postavit relative block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold"
+            className="button-postavit relative block h-14 w-[95%] rounded-lg px-4 py-3 text-xs font-bold active:scale-95"
           >
             <div>
               ПОСТАВИТЬ
